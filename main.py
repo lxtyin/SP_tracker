@@ -54,7 +54,7 @@ soup = BeautifulSoup(page, 'html.parser')
 
 single_ls = soup.find_all(id = re.compile('sigleQuestionDiv_.'))
 
-res_f = open('res.txt', 'w')
+res_f = open('res.txt', 'w', encoding='utf-8')
 
 for div in single_ls:
 	info = div.h3.div.string # 题目内容
@@ -76,7 +76,7 @@ for div in single_ls:
 			if not idx.div: continue
 			content = idx.div.text # 选项内容
 			for i in ques['ans']:
-				if string_similar(i, content) > 0.8: # 相似度
+				if string_similar(i, content) > 0.9: # 相似度
 					res_f.write(idx.span.text + ' ' + content + ' ')
 					res_f.write(str(string_similar(i, content))) #答案
 					res_f.write('\n')

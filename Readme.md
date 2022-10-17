@@ -2,7 +2,7 @@
 
 - 阅览整卷 - 查看网页源码 - 将html内容复制到 `info.html`
 
-- 执行main.py
+- 双击main.py，等它自动关闭（几秒），然后查看 `res.txt`
 
 注意：
 

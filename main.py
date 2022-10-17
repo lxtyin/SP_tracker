@@ -54,6 +54,8 @@ soup = BeautifulSoup(page, 'html.parser')
 
 single_ls = soup.find_all(id = re.compile('sigleQuestionDiv_.'))
 
+res_f = open('res.txt', 'w')
+
 for div in single_ls:
 	info = div.h3.div.string # 题目内容
 	ques = {} #找到最匹配的题目
@@ -64,10 +66,10 @@ for div in single_ls:
 			mx_match = rate
 			ques = q
 
-	print(info, '\n', "Answer: ")
+	res_f.write(info + "\nAnswer: \n")
 
 	if ques['tag'] == '填空':
-		print(ques['ans'][0])
+		res_f.write(ques['ans'][0])
 	else:
 		option = div.form.div.find_all('div')
 		for idx in option: # 枚举选项
@@ -75,7 +77,9 @@ for div in single_ls:
 			content = idx.div.text # 选项内容
 			for i in ques['ans']:
 				if string_similar(i, content) > 0.8: # 相似度
-					print(idx.span.string, content, string_similar(i, content)) #答案
+					res_f.write(idx.span.text + ' ' + content + ' ')
+					res_f.write(str(string_similar(i, content))) #答案
+					res_f.write('\n')
 					break
-	print("--------\n")
-
+	res_f.write("\n--------\n")
+res_f.close()
